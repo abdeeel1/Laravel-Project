@@ -3,6 +3,7 @@
 use App\Http\Controllers\contollerTps;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,12 @@ Route::get('/contact', function(){
 })->name('contact');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/products/create', [ProductController::class, 'form'])->name("form");
+Route::post('/products/create', [ProductController::class, 'store'])->name("store");
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('details');
+
+Route::get('/student/add', [StudentController::class, 'show'])->name('formShow');
+Route::post('/student/add', [StudentController::class, 'store'])->name('formAdd');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,7 @@ class ProductController extends Controller
         'id' => 1,
         'spec' => 'Intel i5 12th Gen',
         'title' => 'HP16D0195NF', 
-        'price' => '6500', 
+        'price' => '6500',
         'image' => 'HP16D0195NF.jpg', 
         'description' => 'Laptop polyvalent conçu pour la bureautique et 
         multimédia.' 
@@ -52,7 +53,7 @@ class ProductController extends Controller
     public function show($id){
         
         $products = $this->products;
-
+        $id = (int) $id;
         $product = $products[$id - 1] ?? null;
 
         if(!$product){
@@ -60,5 +61,15 @@ class ProductController extends Controller
         }
 
         return view('products.show', compact('product'));
+    }
+
+    public function form(){
+        return view('products.addProduct');
+    }
+
+    public function store(CreateProductRequest $request){
+        $validate = $request->validated();
+
+        return redirect()->route("form")->with("success", "Produit Add !");
     }
 }
