@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\contollerTps;
+use App\Http\Controllers\FilmsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StagiaireController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function(){
+/* Route::get('/', function(){
     return view("home");
 })->name('home');
 
@@ -20,14 +23,31 @@ Route::get('/contact', function(){
     return view("contact");
 })->name('contact');
 
+
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/create', [ProductController::class, 'form'])->name("form");
 Route::post('/products/create', [ProductController::class, 'store'])->name("store");
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('details');
 
+
 Route::get('/student/add', [StudentController::class, 'show'])->name('formShow');
 Route::post('/student/add', [StudentController::class, 'store'])->name('formAdd');
+ */
 
+
+/* Route::get("/films", [FilmsController::class, 'index'])->name("films.index");
+Route::get("/films/{id}", [FilmsController::class, 'show'])->name("films.show");
+Route::get("/films/{id}/acteurs", [FilmsController::class, 'filmsActeurs'])->name("films.acteurs"); */
+
+
+
+/* Route::resource('stagiaires', StagiaireController::class); */
+
+
+
+
+Route::get('/annonces/dashboard', [AnnonceController::class, 'dashboard'])->name('annonces.dashboard');
+Route::resource('annonces', AnnonceController::class);
 
 
 

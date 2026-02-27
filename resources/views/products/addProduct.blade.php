@@ -1,37 +1,37 @@
 @extends('layouts.master')
 @section('title', 'Create Products')
 @section('content')
-    <div class="shadow-xl flex flex-col  justify-center ">
+    <div class="shadow-xl py-5 flex flex-col  justify-center ">
         <div>
-            <h2 class="font-semibold text-2xl text-center">Ajouter un Produit</h2>
+            <h2 class="text-2xl text-center font-bold py-5">Ajouter un Produit</h2>
         </div>
 
         <form action="{{ route('store') }}" method="post" class="flex flex-col gap-5">
             @csrf
             <div class="flex flex-col gap-2 px-6">
                 <label class="font-semibold">Title</label>
-                <input type="text" name="title" placeholder="Ex: PS5" class="border py-2 px-4 rounded outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('title') }}">
+                <input type="text" name="title" placeholder="Ex: PS5" class="border py-2 px-4 rounded outline-none @error('title') border-red-500 @enderror focus:ring-2 focus:ring-blue-500" value="{{ old('title') }}">
                 @error('title')
                     <p class="text-red-500">{{$message}}</p>
                 @enderror
             </div>
             <div class="flex flex-col gap-2 px-6">
                 <label class="font-semibold">Price</label>
-                <input value="{{ old('price') }}" type="number" name="price" placeholder="Ex: 200$" class="border py-2 px-4 rounded outline-none focus:ring-2 focus:ring-blue-500">
+                <input value="{{ old('price') }}" type="number" name="price" placeholder="Ex: 200$" class="border py-2 px-4 @error('price') border-red-500 @enderror rounded outline-none focus:ring-2 focus:ring-blue-500">
                 @error('price')
                     <p class="text-red-500">{{$message}}</p>
                 @enderror
             </div>
             <div class="flex flex-col gap-2 px-6">
                 <label class="font-semibold">Description</label>
-                <textarea value="{{ old('desc') }}" name="desc" placeholder="Description du produit" class="border py-2 px-4 rounded outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <textarea name="desc" placeholder="Description du produit" class="border py-2 px-4 rounded @error('desc') border-red-500 @enderror outline-none focus:ring-2 focus:ring-blue-500">{{ old('desc') }}</textarea>
                 @error('desc')
                     <p class="text-red-500">{{$message}}</p>
                 @enderror
             </div>
             
             
-            <button type="submit" class="bg-blue-500 py-2 ms-5 me-5">Ajouter</button>
+            <button type="submit" class="bg-blue-500 font-bold text-white py-2 ms-5 me-5">Ajouter</button>
         </form>
 
         @if(session('success'))
@@ -52,7 +52,7 @@
         </div>
 
         <script>
-            // Auto-hide after 5 seconds
+            
             setTimeout(function() {
                 document.getElementById('toast-success').style.display = 'none';
             }, 3500);
