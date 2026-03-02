@@ -11,9 +11,51 @@ use Illuminate\Support\Facades\Storage;
 class AnnonceController extends Controller
 {
     
-    public function index(){
-        $annonces = Annonce::all();
-        return view('annonces.index', compact('annonces'));
+    
+    public function index(Request $request){
+    
+    $query = Annonce::query();
+
+    
+    if ($request->filled('titre')) {
+        $query->where('titre', 'like', '%' . $request->titre . '%');
+    }
+
+   
+    if ($request->filled('type')) {
+        $query->where('type', $request->type);
+    }
+
+    
+    if ($request->filled('ville')) {
+        $query->where('ville', 'like', '%' . $request->ville . '%');
+    }
+
+    
+    if ($request->filled('min_surface')) {
+        $query->where('superficie', '>=', $request->min_surface);
+    }
+
+    
+    if ($request->filled('max_surface')) {
+        $query->where('superficie', '<=', $request->max_surface);
+    }
+
+    
+    if ($request->filled('prix_max')) {
+        $query->where('prix', '<=', $request->prix_max);
+    }
+
+    
+    if ($request->filled('etat')) {
+        $query->where('etat', $request->etat);
+    }
+
+    $annonces = $query->get();
+    return view('annonces.index', compact('annonces'));
+
+
+
     }
 
     
@@ -93,10 +135,14 @@ class AnnonceController extends Controller
 
     public function destroy(Annonce $annonce)
     {
+        
         if ($annonce->photo && Storage::disk('public')->exists($annonce->photo)) {
             Storage::disk('public')->delete($annonce->photo);
         }
+
+        
         $annonce->delete();
+
         return redirect()->back()->with('success', 'Annonce supprimée avec succès');
     }
 
